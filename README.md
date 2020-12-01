@@ -1,1 +1,1 @@
-# netguru-case
+# netguru-case-solution
