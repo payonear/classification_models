@@ -6,8 +6,8 @@ This project is a solution of Netguru programming task.
 ## Structure
 - `model.py` - Loads or creates a classification model, that as an input takes vectorized text embeddings and predicts classes.
 - `models`
-- - `net.py` - Neural network for classification based on text embeddings.\n
--`utils`
+- - `net.py` - Neural network for classification based on text embeddings.
+- `utils`
 - - `dataset.py` - Pytorch Dataset object created for comfortable interaction with torch DataLoaders.
 - `Solution.ipynb` - Jupyter Notebook with description of learning process for 4 predictive models.
 
