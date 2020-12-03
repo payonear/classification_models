@@ -45,7 +45,7 @@ class Model(pl.LightningModule):
         return self.net(vector, label)
 
     def train_dataloader(self):
-        if self.weights is not None:
+        if self.weights is None:
             loader = DataLoader(self.train_dataset,
                 batch_size = self.hparams.get('batch_size', 32),
                 shuffle = self.hparams.get('shuffle', True),
