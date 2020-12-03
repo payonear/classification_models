@@ -2,7 +2,7 @@ from models.net import Net
 from utils.dataset import BlogDataset
 import torch
 import torch.optim as optim
-from torch.utils.data import DataLoader
+from torch.utils.data import DataLoader, WeightedRandomSampler
 import pytorch_lightning as pl
 from pytorch_lightning.callbacks import ModelCheckpoint, EarlyStopping
 import torch.nn as nn
@@ -12,7 +12,6 @@ from tqdm import tqdm
 import pandas as pd
 import numpy as np
 from pathlib import Path
-from sentence_transformers import SentenceTransformer
 
 class Model(pl.LightningModule):
     """[summary]
@@ -27,6 +26,7 @@ class Model(pl.LightningModule):
         self.val_dataset = self.__build_dataset(X_val, y_val)
         self.output_dim = len(np.unique(y_train))
         self.net = self.__build_model()
+        self.weights = self.hparams.get('weights', None)
         self.output_path = Path(
             self.hparams.get('output_path', './checkpoints/model-outputs')
         )
@@ -45,12 +45,25 @@ class Model(pl.LightningModule):
         return self.net(vector, label)
 
     def train_dataloader(self):
-        loader = DataLoader(self.train_dataset,
-            batch_size = self.hparams.get('batch_size', 32),
-            shuffle = self.hparams.get('shuffle', True),
-            num_workers = self.hparams.get('num_workers', 4),
-            pin_memory= self.hparams.get('pin_memory', False)
-        )
+        if self.weights is not None:
+            loader = DataLoader(self.train_dataset,
+                batch_size = self.hparams.get('batch_size', 32),
+                shuffle = self.hparams.get('shuffle', True),
+                num_workers = self.hparams.get('num_workers', 4),
+                pin_memory= self.hparams.get('pin_memory', False)
+            )
+        else:
+            weighted_sampler = WeightedRandomSampler(
+                        weights=self.weights,
+                        num_samples=len(self.weights),
+                        replacement=True
+            )
+            loader = DataLoader(self.train_dataset,
+                batch_size = self.hparams.get('batch_size', 32),
+                sampler = weighted_sampler,
+                num_workers = self.hparams.get('num_workers', 4),
+                pin_memory= self.hparams.get('pin_memory', False)
+            )
         return loader
     
     def val_dataloader(self):
