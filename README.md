@@ -17,5 +17,5 @@ This project is a solution of Netguru programming task.
 - create virtual environment `python -m venv venv` and activate it (optionally)
 - run in terminal `pip install -r requirements.txt`
 - if using venv run `python -m ipykernel install --user --name=myenv` with name of your venv
-- if using venv choose repective kernel
 - open `Solution.ipynb`
+- if using venv choose repective kernel
