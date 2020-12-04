@@ -1,4 +1,4 @@
-# netguru-case-solution
+# netguru-case
 
 ## About
 This project is a solution of Netguru programming task.
