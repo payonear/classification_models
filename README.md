@@ -15,5 +15,7 @@ This project is a solution of Netguru programming task.
 - You need to download the data from [here](https://drive.google.com/file/d/1pzQOxzzqPBBzdTwRYxR8IJ1KEWgpnFw_/view)
 - Unzip the data to `data` folder in project directory
 - create virtual environment `python -m venv venv` (optionally)
-- `pip install -r requirements.txt`
-- run `Solution.ipynb`
+- run in terminal `pip install -r requirements.txt`
+- if using venv run `python -m ipykernel install --user --name=myenv` with name of your venv
+- if using venv choose repective kernel
+- open `Solution.ipynb`
