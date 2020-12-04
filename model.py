@@ -71,7 +71,7 @@ class Model(pl.LightningModule):
         hidden_dim = self.hparams.get('hidden_dim', 128)
         return Net(768, self.output_dim, loss_func, hidden_dim, dropout)
     
-    def forward(self, vector, label):
+    def forward(self, vector, label=None):
         return self.net(vector, label)
 
     def train_dataloader(self):
