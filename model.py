@@ -14,12 +14,42 @@ import numpy as np
 from pathlib import Path
 
 class Model(pl.LightningModule):
-    """[summary]
+    """Loads or creates a classification model, that as an input takes vectorized text embeddings and predicts classes.
 
     Args:
-        
+        X_train: numpy array with embedding vectors from train sample
+        y_train: numpy array of labels for train sample
+        X_val: numpy array with embedding vectors from validation sample
+        y_val: numpy array of labels for validation sample
+        hparams: python dictionary with hyperparameters if specified:
+                :weights: 
+                :output_path:
+                :dropout:
+                :loss_func:
+                :hidden_dim:
+                :batch_size:
+                :shuffle:
+                :num_workers:
+                :pin_memory:
+                :random_state:
+                :device:
+                :max_epochs:
+                :verbose:
+                :monitor:
+                :prefix:
+                :early_stop_callback:
+                :early_stop_monitor:
+                :early_stop_min_delta:
+                :early_stop_patience:
+                :gradient_clip_val:
+                :gpus:
+                :overfit_batches:
+                :max_epochs:
+                :fast_dev_run:
+                :logger:
+
     """
-    def __init__(self, X_train, y_train, X_val, y_val, hparams):
+    def __init__(self, X_train, y_train, X_val, y_val, hparams = {}):
         super(Model, self).__init__()
         self.hparams = hparams
         self.train_dataset = self.__build_dataset(X_train, y_train)

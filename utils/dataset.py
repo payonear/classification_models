@@ -1,7 +1,12 @@
 from torch.utils.data import Dataset
-import pandas as pd
 
 class BlogDataset(Dataset):
+    """Pytorch Dataset object created for comfortable interaction with torch DataLoaders.
+
+    Args:
+        X: numpy array with features
+        y: label
+    """
     def __init__(self, X, y):
         self.X = X
         self.y = y
