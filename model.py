@@ -22,31 +22,30 @@ class Model(pl.LightningModule):
         X_val: numpy array with embedding vectors from validation sample
         y_val: numpy array of labels for validation sample
         hparams: python dictionary with hyperparameters if specified:
-                :weights: 
-                :output_path:
-                :dropout:
-                :loss_func:
-                :hidden_dim:
-                :batch_size:
-                :shuffle:
-                :num_workers:
-                :pin_memory:
-                :random_state:
-                :device:
-                :max_epochs:
-                :verbose:
-                :monitor:
-                :prefix:
-                :early_stop_callback:
-                :early_stop_monitor:
-                :early_stop_min_delta:
-                :early_stop_patience:
-                :gradient_clip_val:
-                :gpus:
-                :overfit_batches:
-                :max_epochs:
-                :fast_dev_run:
-                :logger:
+                :weights: a sequence of weights for WeightedRandomSampler. (default None)
+                :output_path: path for checkpoints to save. (default: './checkpoints/model-outputs')
+                :dropout: dropout rate from 0 to 1. (default: 0.0)
+                :loss_func: loss function. (default: nn.CrossEntropyLoss())
+                :hidden_dim: hidden layer's dimension. (default: 128)
+                :batch_size: size of the batch. (default: 32)
+                :shuffle: set to True to have the data reshuffled at every epoch. (default: True)
+                :num_workers: how many subprocesses to use for data loading. 0 means that the data will be loaded in the main process. (default: 4)
+                :pin_memory: If True, the data loader will copy Tensors into CUDA pinned memory before returning them. (default False)
+                :random_state: random seed. (default: 17)
+                :device: specifies device. (default: 'cpu') 
+                :max_epochs: maxinmum number of epochs. (default: 10)
+                :verbose: if True, prints the test results (default: True)
+                :monitor: quantity to be monitored by checkpoint_callback. (default: 'avg_val_loss')
+                :prefix: prefix for checkpoints. (default: '')
+                :early_stop_callback: specifies callback for monitoring a metric and stop training when it stops improving. (default: EarlyStopping)
+                :early_stop_monitor: quantity to be monitored by EarlyStopping. (default: 'avg_val_loss')
+                :early_stop_min_delta: minimum change in the monitored quantity to qualify as an improvement. (default: 1e-3)
+                :early_stop_patience: number of validation epochs with no improvement after which training will be stopped. (default: 3)
+                :gradient_clip_val: gradient clipping. 0 means don’t clip. (default: 1)
+                :gpus: number of gpus to train on (int) or which GPUs to train on (list or str) applied per node. (default: 1)
+                :overfit_batches: overfit a percent of training data (float) or a set number of batches (int). (default: 0.0)
+                :fast_dev_run: runs 1 batch of train, test and val to find any bugs. (default: False)
+                :logger: logger (or iterable collection of loggers) for experiment tracking. (default: False)
 
     """
     def __init__(self, X_train, y_train, X_val, y_val, hparams = {}):
